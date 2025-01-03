@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThirdwebProvider } from "thirdweb/react";
+import { ThirdwebProvider, ConnectButton } from "thirdweb/react";
 import Image from "next/image";
-import { ConnectButton } from "thirdweb/react";
 import monadLogo from "@public/logo.png";
 import { client } from "./const/client";
 import { contract } from "./const/contract";
