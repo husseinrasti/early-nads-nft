@@ -56,7 +56,8 @@ export default function Profile() {
                         )
                     ) : (
                         <div className="contentCenter">
-                            <p className="text-2xl md:text-2xl font-semibold md:font-bold">Loading...
+                            <p className="text-2xl md:text-2xl font-semibold md:font-bold">
+                                Loading...
                             </p>
                         </div>
                     )}
