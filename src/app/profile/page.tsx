@@ -24,13 +24,12 @@ export default function Profile() {
 
     return (
         <div>
-            {contract ? (
-                <div className="items-center justify-center">
-                    <h3 className="text-2xl md:text-2xl font-semibold md:font-bold tracking-tighter text-zinc-100 ml-10 my-6">My NFTs:</h3>
-                    <div className="grid">
-                        {!isContractMetadataLaoding || !isNFTsLaoding ? (
-                            ownedNFTs?.length! > 0 ? (
-                                ownedNFTs?.map((nft) => (
+            {account && contract ? (
+                <div className="contentCenter items-center justify-center">
+                    {!isContractMetadataLaoding || !isNFTsLaoding ? (
+                        ownedNFTs && ownedNFTs?.length > 0 ? (
+                            <div className="grid">
+                                {ownedNFTs?.map((nft) => (
                                     <div key={nft.metadata.id} className="NFTCard">
                                         <div className="collectionImage">
                                             <MediaRenderer
@@ -46,20 +45,27 @@ export default function Profile() {
                                             </p>
                                         </div>
                                     </div>
-                                ))
-                            ) : (
-                                <p className="text-2xl md:text-2xl font-semibold md:font-bold tracking-tighter text-zinc-100  ml-10 my-6">
-                                    No NFTs owned.
-                                </p>
-                            )
+                                ))}
+                            </div>
                         ) : (
-                            <p>Loading...</p>
-                        )}
-                    </div>
+                            <div className="contentCenter">
+                                <p className="text-2xl md:text-2xl font-semibold md:font-bold">
+                                    No NFTs owned
+                                </p>
+                            </div>
+                        )
+                    ) : (
+                        <div className="contentCenter">
+                            <p className="text-2xl md:text-2xl font-semibold md:font-bold">Loading...
+                            </p>
+                        </div>
+                    )}
                 </div>
             ) : (
-                <div className="main">
-                    <p>Connect your wallet to view your profile.</p>
+                <div className="contentCenter">
+                    <p className="text-2xl md:text-2xl font-semibold md:font-bold">
+                        Connect your wallet to view your profile.
+                    </p>
                 </div>
             )}
 

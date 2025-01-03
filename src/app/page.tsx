@@ -5,7 +5,7 @@ import { client } from "./const/client";
 import { contract } from "./const/contract";
 import { toEther } from "thirdweb";
 import { getContractMetadata } from "thirdweb/extensions/common";
-import { claimTo, getActiveClaimCondition, getTotalClaimedSupply, nextTokenIdToMint } from "thirdweb/extensions/erc721";
+import { claimTo, getActiveClaimCondition, getTotalClaimedSupply, nextTokenIdToMint, balanceOf } from "thirdweb/extensions/erc721";
 import { useState } from "react";
 
 export default function Home() {
@@ -25,14 +25,22 @@ export default function Home() {
     { contract: contract }
   );
 
-  const { data: claimCondition } = useReadContract(getActiveClaimCondition,
+  const { data: claimCondition, isLoading: isClaimConditionLoading } = useReadContract(getActiveClaimCondition,
     { contract: contract }
+  );
+
+  const { data: balanceOfNFT, isLoading: isBalanceOfNFTLoading } = useReadContract(balanceOf,
+    { contract: contract, owner: account?.address || "" }
   );
 
   const getPrice = (quantity: number) => {
     const total = quantity * parseInt(claimCondition?.pricePerToken.toString() || "0");
     return toEther(BigInt(total));
   }
+
+  const truncateMaxClaimableSupply = (supply: string) => {
+    return `${supply.slice(0, 6)}`;
+  };
 
   return (
     <div className="p-4 flex items-center text-center justify-center">
@@ -58,9 +66,20 @@ export default function Home() {
           {isClaimedSupplyLoading || isTotalSupplyLoading ? (
             <p>Loading...</p>
           ) : (
-            <p className="flex flex-col text-lg font-bold">
+            <p className="flex flex-col text-lg font-bold my-2">
               Total NFT Supply: {claimedSupply?.toString()}/{totalNFTSupply?.toString()}
             </p>
+          )}
+          {account ? (
+            isClaimConditionLoading || isBalanceOfNFTLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <p className="flex flex-col text-lg font-bold my-2">
+                Claim per wallet: {balanceOfNFT?.toString()}/{truncateMaxClaimableSupply(claimCondition?.quantityLimitPerWallet?.toString()!)}
+              </p>
+            )
+          ) : (
+            <br />
           )}
           <div className="claimContainer items-center justify-center my-4">
             <button

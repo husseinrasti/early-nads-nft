@@ -23,6 +23,7 @@
 
 body {
 	min-height: 100%;
+	background-color: #261e42;
 }
 
 .container {
@@ -147,18 +148,25 @@ main {
 	filter: invert(1);
 }
 
+.contentCenter {
+	width: 100%;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
 footer {
 	clear: both;
 	position: relative;
 	height: 50px;
-	background-color: #1b2129;
+	background-color: #1a1238;
 	color: #fff;
 	padding: 1rem 1rem;
 	text-align: center;
 }
 
 .navbar {
-	background-color: #1b2129;
+	background-color: #1a1238;
 	color: #fff;
 	padding: 1rem 1rem;
 	display: flex;
@@ -184,7 +192,7 @@ footer {
 }
 
 .heroSection {
-	background-color: #1b2129;
+	background-color: #1a1238;
 	color: #fff;
 	padding: 2rem 2rem;
 	display: flex;
